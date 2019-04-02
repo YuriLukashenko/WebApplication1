@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClassLibrary1.Data;
 using ClassLibrary1.Data.Models;
+using ClassLibrary1.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,7 @@ namespace WebApplication1
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IForum, ForumService>();
 
             services.AddMvc();
         }

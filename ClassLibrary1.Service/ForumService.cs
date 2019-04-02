@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ClassLibrary1.Data;
 using ClassLibrary1.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClassLibrary1.Service
 {
     public class ForumService : IForum
     {
         private readonly ApplicationDbContext _context;
-
+          
         public ForumService(ApplicationDbContext context)
         {
             _context = context;
@@ -22,7 +23,8 @@ namespace ClassLibrary1.Service
 
         public IEnumerable<Forum> GetAll()
         {
-            return _context.Forums;
+            return _context.Forums
+                .Include(forum => forum.Posts);
         }
 
         public IEnumerable<ApplicationUser> GetAllActiveUsers()
