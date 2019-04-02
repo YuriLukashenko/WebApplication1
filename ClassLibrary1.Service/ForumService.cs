@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ClassLibrary1.Data;
 using ClassLibrary1.Data.Models;
@@ -18,13 +19,15 @@ namespace ClassLibrary1.Service
 
         public Forum GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Forums.Where(forum => forum.Id == id)
+                .Include(f => f.Posts).ThenInclude(p => p.User)
+                .Include(f => f.Posts).ThenInclude(p => p.Replies).ThenInclude(r => r.User)
+                .FirstOrDefault();
         }
 
         public IEnumerable<Forum> GetAll()
         {
-            return _context.Forums
-                .Include(forum => forum.Posts);
+            return _context.Forums.Include(forum => forum.Posts);
         }
 
         public IEnumerable<ApplicationUser> GetAllActiveUsers()

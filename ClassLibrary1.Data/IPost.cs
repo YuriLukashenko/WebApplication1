@@ -16,5 +16,6 @@ namespace ClassLibrary1.Data
         Task Delete(int id);
         Task EditPostContent(int id, string newContent);
 
+        IEnumerable<Post> GetPostByForum(int id);
     }
 }
