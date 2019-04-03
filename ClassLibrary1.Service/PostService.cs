@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary1.Data;
 using ClassLibrary1.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClassLibrary1.Service
 {
@@ -19,7 +20,11 @@ namespace ClassLibrary1.Service
 
         public Post GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Posts.Where(post => post.Id == id)
+                .Include(post => post.User)
+                .Include(post => post.Replies).ThenInclude(reply => reply.User)
+                .Include(post => post.Forum)
+                .First();
         }
 
         public IEnumerable<Post> GetAll()
