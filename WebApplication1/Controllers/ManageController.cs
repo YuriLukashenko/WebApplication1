@@ -69,7 +69,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IndexViewModel model)
         {
             if (!ModelState.IsValid)
@@ -108,7 +107,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendVerificationEmail(IndexViewModel model)
         {
             if (!ModelState.IsValid)
@@ -151,7 +149,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -200,7 +197,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SetPassword(SetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -247,7 +243,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> LinkLogin(string provider)
         {
             // Clear the existing external cookie to ensure a clean login process
@@ -288,7 +283,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel model)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -345,7 +339,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Disable2fa()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -380,7 +373,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EnableAuthenticator(EnableAuthenticatorViewModel model)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -436,7 +428,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetAuthenticator()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -470,7 +461,6 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> GenerateRecoveryCodes()
         {
             var user = await _userManager.GetUserAsync(User);
