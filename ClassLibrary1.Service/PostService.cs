@@ -29,7 +29,10 @@ namespace ClassLibrary1.Service
 
         public IEnumerable<Post> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Posts
+                .Include(post => post.User)
+                .Include(post => post.Replies).ThenInclude(reply => reply.User)
+                .Include(post => post.Forum);
         }
 
         public IEnumerable<Post> GetFilteredPost(string searchQuery)
@@ -58,6 +61,11 @@ namespace ClassLibrary1.Service
             return _context.Forums
                 .Where(forum => forum.Id == id).First()
                 .Posts;
+        }
+
+        public IEnumerable<Post> GetLatestPosts(int n)
+        {
+            return GetAll().OrderByDescending(post => post.Created).Take(n);
         }
     }
 }

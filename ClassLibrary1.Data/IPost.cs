@@ -17,5 +17,6 @@ namespace ClassLibrary1.Data
         Task EditPostContent(int id, string newContent);
 
         IEnumerable<Post> GetPostByForum(int id);
+        IEnumerable<Post> GetLatestPosts(int n);
     }
 }
