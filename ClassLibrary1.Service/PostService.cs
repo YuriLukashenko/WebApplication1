@@ -37,9 +37,10 @@ namespace ClassLibrary1.Service
             throw new NotImplementedException();
         }
 
-        public Task Add(Post post)
+        public async Task Add(Post post)
         {
-            throw new NotImplementedException();
+            _context.Add(post);
+            await _context.SaveChangesAsync();
         }
 
         public Task Delete(int id)
