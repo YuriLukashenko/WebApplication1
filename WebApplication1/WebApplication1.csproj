@@ -23,4 +23,10 @@
     <ProjectReference Include="..\ClassLibrary1.Service\ClassLibrary1.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\forum\" />
+    <Folder Include="wwwroot\images\users\" />
+    <Folder Include="wwwroot\images\theme\" />
+  </ItemGroup>
+
 </Project>
