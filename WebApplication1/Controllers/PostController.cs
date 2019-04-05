@@ -42,10 +42,16 @@ namespace WebApplication1.Controllers
                PostContent = post.Content,
                Replies = replies,
                ForumId = post.Forum.Id,
-               ForumName = post.Forum.Title
+               ForumName = post.Forum.Title,
+               IsAuthorAdmin = IsAuthorAdmin(post.User)
             };
 
             return View(model);
+        }
+
+        private bool IsAuthorAdmin(ApplicationUser postUser)
+        {
+            return _userManager.GetRolesAsync(postUser).Result.Contains("Admin");
         }
 
         public IActionResult Create(int id)
@@ -102,7 +108,9 @@ namespace WebApplication1.Controllers
                 AuthorImageUrl = reply.User.ProfileImageUrl,
                 AuthorRating = reply.User.Rating,
                 Created = reply.Created,
-                ReplyContent = reply.Content
+                ReplyContent = reply.Content,
+                IsAuthorAdmin = IsAuthorAdmin(reply.User)
+                
             });
         }
     }
