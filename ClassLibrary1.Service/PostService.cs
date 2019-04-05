@@ -67,5 +67,14 @@ namespace ClassLibrary1.Service
         {
             return GetAll().OrderByDescending(post => post.Created).Take(n);
         }
+
+        public IEnumerable<Post> GetFilteredPosts(Forum forum, string searchQuery)
+        {
+            return String.IsNullOrEmpty(searchQuery) 
+                ? forum.Posts 
+                : forum.Posts.Where(post 
+                    => post.Title.Contains(searchQuery) 
+                       || post.Content.Contains(searchQuery));
+        }
     }
 }

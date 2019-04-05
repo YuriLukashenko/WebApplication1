@@ -15,9 +15,10 @@ namespace WebApplication1.Controllers
         private readonly IForum _forumService;
         private readonly IPost _postService;
 
-        public ForumController(IForum forumService)
+        public ForumController(IForum forumService, IPost postService)
         {
             _forumService = forumService;
+            _postService = postService;
         }
 
         public IActionResult Index()
@@ -38,11 +39,13 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
-        public IActionResult Topic(int id)
+        public IActionResult Topic(int id, string searchQuery)
         {
             var forum = _forumService.GetById(id);
-            var posts = forum.Posts;
+            var posts = new List<Post>();
 
+            posts = _postService.GetFilteredPosts(forum, searchQuery).ToList();
+            
             var postListings = posts.Select(post => new PostListingModel
             {
                 Id = post.Id,
@@ -63,6 +66,13 @@ namespace WebApplication1.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult Search(int id, string searchQuery)
+        {
+            return RedirectToAction("Topic", new {id, searchQuery});
+        }
+
 
         private ForumListingModel BuildForumListing(Post post)
         {

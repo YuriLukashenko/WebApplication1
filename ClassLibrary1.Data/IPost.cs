@@ -10,7 +10,6 @@ namespace ClassLibrary1.Data
     {
         Post GetById(int id);
         IEnumerable<Post> GetAll();
-        IEnumerable<Post> GetFilteredPost(string searchQuery);
 
         Task Add(Post post);
         Task Delete(int id);
@@ -18,5 +17,6 @@ namespace ClassLibrary1.Data
 
         IEnumerable<Post> GetPostByForum(int id);
         IEnumerable<Post> GetLatestPosts(int n);
+        IEnumerable<Post> GetFilteredPosts(Forum forum, string searchQuery);
     }
 }
