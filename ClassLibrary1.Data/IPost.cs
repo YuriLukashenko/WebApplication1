@@ -18,5 +18,6 @@ namespace ClassLibrary1.Data
         IEnumerable<Post> GetPostByForum(int id);
         IEnumerable<Post> GetLatestPosts(int n);
         IEnumerable<Post> GetFilteredPosts(Forum forum, string searchQuery);
+        IEnumerable<Post> GetFilteredPosts(string searchQuery);
     }
 }
