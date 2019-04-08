@@ -6,6 +6,7 @@ using ClassLibrary1.Data;
 using ClassLibrary1.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Models.ApplicationUser;
 
 namespace WebApplication1.Controllers
 {
@@ -27,9 +28,15 @@ namespace WebApplication1.Controllers
 
         public IActionResult Detail(string id)
         {
+            var user = _userManager.FindByIdAsync(id).Result;
             var model = new ProfileModel
             {
-                
+                userId = user.Id,
+                Email = user.Email,
+                MemberSince = user.MemberSince,
+                ProfileImageUrl = user.ProfileImageUrl,
+                UserName = user.UserName,
+                UserRating = user.Rating.ToString()
             };
             return View(model);
         }
