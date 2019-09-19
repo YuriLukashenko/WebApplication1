@@ -28,7 +28,10 @@ namespace WebApplication1.Controllers
 
         public IActionResult Detail(string id)
         {
-            var user = _userManager.FindByIdAsync(id).Result;
+            var user = _userService.GetById(id);
+
+            var userRoles = _userManager.GetRolesAsync(user).Result;
+
             var model = new ProfileModel
             {
                 userId = user.Id,
@@ -36,7 +39,8 @@ namespace WebApplication1.Controllers
                 MemberSince = user.MemberSince,
                 ProfileImageUrl = user.ProfileImageUrl,
                 UserName = user.UserName,
-                UserRating = user.Rating.ToString()
+                UserRating = user.Rating.ToString(),
+                IsAdmin = userRoles.Contains("Admin")
             };
             return View(model);
         }
