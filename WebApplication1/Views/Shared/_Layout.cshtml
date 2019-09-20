@@ -11,7 +11,7 @@
     <title>@ViewData["Title"] - WebApplication1</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
@@ -34,21 +34,22 @@
                     <li><a asp-controller="Forum" asp-action="Index">Forums</a></li>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toogle" data-toogle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Settings <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
+                        <div class="btn-group">
+                            <button type="button" data-toggle="dropdown" class="btn btn-info marginfix8">
+                                Settings <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" >
                                 <li role="separator" class="divider"></li>
-                                <li class="dropdown-header"> Profile </li>
-                                <li><a asp-controller="Profile" asp-action="Detail">My Profile</a></li>
+                                <li><a asp-controller="Profile" asp-action="Detail" asp-route-id="@UserManager.GetUserId(User)">My Profile</a></li>
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header"> Admin </li>
-                                    @*<li> <a asp-controller="Forum" asp-action="Create"> Create Forum</a></li>
-                                    <li> <a asp-controller="Profile" asp-action="Index"> View Users</a></li>*@
+                                    <li> <a asp-controller="Forum" asp-action="Create"> Create Forum</a></li>
+                                    <li> <a asp-controller="Profile" asp-action="Index"> View Users</a></li>
                                 }
                             </ul>
-                        </li>
+                        </div>
                     }
                 </ul>
                 @if (!SignInManager.IsSignedIn(User))

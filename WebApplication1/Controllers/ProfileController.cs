@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClassLibrary1.Data;
 using ClassLibrary1.Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models.ApplicationUser;
@@ -44,5 +45,24 @@ namespace WebApplication1.Controllers
             };
             return View(model);
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> UploadProfileImage(IFormFile file)
+        //{
+        //    var user_id = _userManager.GetUserId(User);
+        //    //Connect to azure storage
+        //    //Get Blob Container
+
+        //    //Parse the Content Disposition responce header
+        //    //Grab the filename
+
+        //    //Get a reference to a Block Blob
+        //    //On the Block Blob upload the file <- file uploaded to the cloud
+
+        //    //Set the User's profile image to the URI
+        //    //redirect to the user's profile page
+       
+
+        //}
     }
 }
