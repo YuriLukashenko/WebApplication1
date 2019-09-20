@@ -84,5 +84,11 @@ namespace ClassLibrary1.Service
                 => post.Title.Contains(searchQuery)
                 || post.Content.Contains(searchQuery));
         }
+
+        public async Task AddReply(PostReply reply)
+        {
+            _context.Add(reply);
+            await _context.SaveChangesAsync();
+        }
     }
 }
