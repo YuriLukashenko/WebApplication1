@@ -294,6 +294,61 @@
     background-color: #fff;
 }
 
+/*user profile index*/
+.userProfilePic{
+    height: 140px;
+    width: 140px;
+    background-size: 100%;
+}
+
+#userProfileImage {
+    background-size: 100%;
+}
+
+.fillSquare{
+    background-size: 100%;
+}
+
+/*Replies*/
+.replyContent{
+    display: table;
+    background-color: white;
+    border-bottom: 1px solid #aaa;
+    width: inherit;
+}
+
+#postReplyRow{
+    background-color: #3F51B5;
+    padding: 8px;
+}
+
+.replyContentContainer {
+     display: table-cell;
+     padding: 12px;
+}
+
+.replyAuthorContainer{
+     display: table-cell;
+     padding: 12px;
+}
+
+#replyDivider{
+    height: 2px;
+    margin-bottom: 12px;
+}
+
+.isAdmin{
+    display: inline-block;
+    padding: 3px;
+    background-color: #FFEB3B;
+    color: #000;
+    font-family: 'Roboto Mono'
+}
+
+.smaller{
+    font-size: 0.8em;
+}
+
 /*Forum Index*/
 #forumIndexTable td {
     background-color: rgba(255, 255, 255, 0.9);
@@ -378,9 +433,23 @@
     padding: 24px;
 }
 
+.authorBlock{
+    padding: 18px;
+    border: 1px dashed #00AFCF;
+}
+
+.noBorder{
+    border: none;
+}
+
+#originalPost{
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 8px;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
- 
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
