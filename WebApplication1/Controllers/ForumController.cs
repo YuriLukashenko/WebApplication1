@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using ClassLibrary1.Data;
 using ClassLibrary1.Data.Models;
@@ -109,13 +110,16 @@ namespace WebApplication1.Controllers
 
         }
 
-        private CloudBlockBlob UploadForumImage(IFormFile imageUpload)
+        private CloudBlockBlob UploadForumImage(IFormFile file)
         {
-            //todo - create free azure account
-            //var connectionString = _configuration.GetConnectionString("AzureStorageAccount");
-            //var container = _uploadService
+            var connectionString = _configuration.GetConnectionString("AzureStorageAccount");
+            var container = _uploadService.GetBlobContainer(connectionString, "forum-images");
+            var conteneDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
+            var filename = conteneDisposition.FileName.ToString().Trim('"');
+            var blockBlob = container.GetBlockBlobReference(filename);
+            blockBlob.UploadFromStreamAsync(file.OpenReadStream()).Wait();
 
-            throw new NotImplementedException();
+            return blockBlob;
         }
 
         private ForumListingModel BuildForumListing(Post post)
