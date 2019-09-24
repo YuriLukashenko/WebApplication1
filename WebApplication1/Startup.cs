@@ -42,6 +42,8 @@ namespace WebApplication1
             services.AddScoped<IUpload, UploadService>();
             services.AddScoped<IApplicationUser, ApplicationUserService>();
 
+            services.AddSingleton(Configuration); 
+
             services.AddTransient<DataSeeder>();
 
             services.AddMvc();

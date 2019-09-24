@@ -7,6 +7,8 @@ using ClassLibrary1.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Net.Http.Headers;
 using WebApplication1.Models.ApplicationUser;
 
 namespace WebApplication1.Controllers
@@ -16,15 +18,18 @@ namespace WebApplication1.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationUser _userService;
         private readonly IUpload _uploadService;
+        private readonly IConfiguration _configuration;
  
         public ProfileController(
             UserManager<ApplicationUser> userManager,
             IApplicationUser userService, 
-            IUpload uploadService)
+            IUpload uploadService,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _userService = userService;
             _uploadService = uploadService;
+            _configuration = configuration;
         }
 
         public IActionResult Detail(string id)
@@ -46,24 +51,36 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> UploadProfileImage(IFormFile file)
-        //{
-        //    var user_id = _userManager.GetUserId(User);
-        //    //Connect to azure storage
-        //    //Get Blob Container
+        [HttpPost]
+        public async Task<IActionResult> UploadProfileImage(IFormFile file)
+        {
+            var userId = _userManager.GetUserId(User);
 
-        //    //Parse the Content Disposition responce header
-        //    //Grab the filename
+            //Connect to azure storage
+            var connectionString = _configuration.GetConnectionString("AzureStorageAccount");
 
-        //    //Get a reference to a Block Blob
-        //    //On the Block Blob upload the file <- file uploaded to the cloud
+            //Get Blob Container
+            var container = _uploadService.GetBlobContainer(connectionString);
 
-        //    //Set the User's profile image to the URI
-        //    //redirect to the user's profile page
-       
+            //Parse the Content Disposition responce header
+            var conteneDisposition = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
 
-        //}
+            //Grab the filename
+            var filename = conteneDisposition.FileName.ToString().Trim('"');
+                
+            //Get a reference to a Block Blob
+            var blockBlob = container.GetBlockBlobReference(filename);
+
+            //On the Block Blob upload the file <- file uploaded to the cloud
+            await blockBlob.UploadFromStreamAsync(file.OpenReadStream()); 
+
+            //Set the User's profile image to the URI
+            await _userService.SetProfileImage(userId, blockBlob.Uri);
+
+            //redirect to the user's profile page
+            return RedirectToAction("Detail", "Profile", new {id = userId});
+
+        }
 
         public IActionResult Index()
         {

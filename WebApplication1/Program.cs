@@ -19,6 +19,11 @@ namespace WebApplication1
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((buiderContext, config) =>
+                {
+                    IHostingEnvironment env = buiderContext.HostingEnvironment;
+                    config.AddJsonFile("StorageSettings.json", optional: false, reloadOnChange: true);
+                })
                 .UseStartup<Startup>()
                 .Build();
     }

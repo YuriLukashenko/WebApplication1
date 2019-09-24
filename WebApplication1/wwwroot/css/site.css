@@ -303,6 +303,10 @@
 
 #userProfileImage {
     background-size: 100%;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background-color: #ddd;
 }
 
 .fillSquare{

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace ClassLibrary1.Data
 {
     public interface IUpload
     {
+        CloudBlobContainer GetBlobContainer(string connectionString);
     }
 }
