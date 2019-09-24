@@ -88,6 +88,7 @@ namespace WebApplication1.Controllers
                 .OrderByDescending(user => user.Rating)
                 .Select(u => new ProfileModel
                 {
+                    userId = u.Id,
                     Email = u.Email,
                     UserName = u.UserName,
                     ProfileImageUrl = u.ProfileImageUrl,
@@ -101,6 +102,13 @@ namespace WebApplication1.Controllers
             };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            await _userService.DeleteUser(id);
+
+            return RedirectToAction("Index", "Profile");
         }
     }
 }

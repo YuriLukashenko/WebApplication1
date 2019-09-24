@@ -12,5 +12,6 @@ namespace ClassLibrary1.Data
         IEnumerable<ApplicationUser> GetAll();
         Task SetProfileImage(string id, Uri uri);
         Task UpdateUserRating(string id, Type type);
+        Task DeleteUser(string id);
     }
 }

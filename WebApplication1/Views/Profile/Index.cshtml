@@ -35,6 +35,14 @@
                     <td>
                         @profile.UserRating
                     </td>
+                    @*<td>
+                        <a asp-controller="Profile"
+                           asp-action="DeleteUser"
+                           asp-route-id="@profile.userId"
+                           class="btn btn-danger">
+                            Delete User
+                        </a>
+                    </td>*@
                 </tr>
                 }
             </tbody>

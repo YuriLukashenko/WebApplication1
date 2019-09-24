@@ -57,5 +57,25 @@ namespace ClassLibrary1.Service
             _context.Update(user);
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteUser(string id)
+        {
+            var user = GetById(id);
+
+            var posts = _context.Posts.Where(p => p.User.Id == id);
+            if (posts.Count() > 0)
+            {
+               _context.Posts.RemoveRange(posts);
+            }
+
+            var replies = _context.PostReplies.Where(r => r.User.Id == id);
+            if (replies.Count() > 0)
+            {
+                _context.PostReplies.RemoveRange(replies);
+            }
+           
+            _context.ApplicationUsers.Remove(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }
