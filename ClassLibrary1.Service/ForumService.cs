@@ -30,11 +30,6 @@ namespace ClassLibrary1.Service
             return _context.Forums.Include(forum => forum.Posts);
         }
 
-        public IEnumerable<ApplicationUser> GetAllActiveUsers()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task Create(Forum forum)
         {
             _context.Add(forum);
@@ -56,6 +51,27 @@ namespace ClassLibrary1.Service
         public Task UpdateForumDescription(int forumId, string newDescription)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<ApplicationUser> GetActiveUsers(int forumId)
+        {
+            var posts = GetById(forumId).Posts;
+
+            if (posts != null || !posts.Any())
+            {
+                var postUsers = posts.Select(p => p.User);
+                var replyUsers = posts.SelectMany(p => p.Replies).Select(r => r.User);
+                return postUsers.Union(replyUsers).Distinct();
+            }
+
+            return new List<ApplicationUser>();
+        }
+
+        public bool HasRecentPost(int forumId)
+        {
+            const int hoursAgo = 12;
+            var window = DateTime.Now.AddHours(-hoursAgo);
+            return GetById(forumId).Posts.Any(post => post.Created > window);
         }
     }
 }
