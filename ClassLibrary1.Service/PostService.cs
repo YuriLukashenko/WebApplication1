@@ -79,10 +79,12 @@ namespace ClassLibrary1.Service
 
         public IEnumerable<Post> GetFilteredPosts(string searchQuery)
         {
+            var normalized = searchQuery.ToLower();
+
             return GetAll()
                 .Where(post 
-                => post.Title.Contains(searchQuery)
-                || post.Content.Contains(searchQuery));
+                => post.Title.ToLower().Contains(normalized)
+                || post.Content.ToLower().Contains(normalized));
         }
 
         public async Task AddReply(PostReply reply)
