@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClassLibrary1.Data;
 using ClassLibrary1.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using WebApplication1.Models.ApplicationUser;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -82,6 +84,7 @@ namespace WebApplication1.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var profiles = _userService.GetAll()

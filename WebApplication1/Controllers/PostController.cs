@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClassLibrary1.Data;
 using ClassLibrary1.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models.Post;
@@ -11,6 +12,7 @@ using WebApplication1.Models.Reply;
 
 namespace WebApplication1.Controllers
 {
+    
     public class PostController : Controller
     {
         private readonly IPost _postService;
@@ -54,11 +56,7 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
-        private bool IsAuthorAdmin(ApplicationUser postUser)
-        {
-            return _userManager.GetRolesAsync(postUser).Result.Contains("Admin");
-        }
-
+        [Authorize]
         public IActionResult Create(int id)
         {
             //Note id is Forum.Id
@@ -76,6 +74,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddPost(NewPostModel model)
         {
             var userId = _userManager.GetUserId(User);
@@ -87,6 +86,11 @@ namespace WebApplication1.Controllers
             await _userService.UpdateUserRating(userId, typeof(Post));
 
             return RedirectToAction("Index", "Post", new { id = post.Id } );
+        }
+
+        private bool IsAuthorAdmin(ApplicationUser postUser)
+        {
+            return _userManager.GetRolesAsync(postUser).Result.Contains("Admin");
         }
 
         private Post BuildPost(NewPostModel model, ApplicationUser user)

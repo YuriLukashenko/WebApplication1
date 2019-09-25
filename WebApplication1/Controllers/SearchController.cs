@@ -47,6 +47,12 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult Search(string searchQuery)
+        {
+            return RedirectToAction("Results", new { searchQuery });
+        }
+
         private ForumListingModel BuildForumListing(Post post)
         {
             var forum = post.Forum;
@@ -59,10 +65,5 @@ namespace WebApplication1.Controllers
             };
         }
 
-        [HttpPost]
-        public IActionResult Search(string searchQuery)
-        {
-            return RedirectToAction("Results", new { searchQuery }); 
-        }
     }
 }
