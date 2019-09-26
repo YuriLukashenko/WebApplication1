@@ -32,25 +32,27 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Forum" asp-action="Index">Forums</a></li>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <div class="btn-group">
-                            <button type="button" data-toggle="dropdown" class="btn btn-info marginfix8">
-                                Settings <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" >
-                                <li role="separator" class="divider"></li>
-                                <li><a asp-controller="Profile" asp-action="Detail" asp-route-id="@UserManager.GetUserId(User)">My Profile</a></li>
-                                @if (User.IsInRole("Admin"))
-                                {
+                    <li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <div class="btn-group">
+                                <button type="button" data-toggle="dropdown" class="btn btn-info marginfix8">
+                                    Settings <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
                                     <li role="separator" class="divider"></li>
-                                    <li class="dropdown-header"> Admin </li>
-                                    <li> <a asp-controller="Forum" asp-action="Create"> Create Forum</a></li>
-                                    <li> <a asp-controller="Profile" asp-action="Index"> View Users</a></li>
-                                }
-                            </ul>
-                        </div>
-                    }
+                                    <li><a asp-controller="Profile" asp-action="Detail" asp-route-id="@UserManager.GetUserId(User)">My Profile</a></li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li role="separator" class="divider"></li>
+                                        <li class="dropdown-header"> Admin </li>
+                                        <li> <a asp-controller="Forum" asp-action="Create"> Create Forum</a></li>
+                                        <li> <a asp-controller="Profile" asp-action="Index"> View Users</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </li>
                 </ul>
                 @if (!SignInManager.IsSignedIn(User))
                 {

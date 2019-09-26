@@ -70,11 +70,17 @@ namespace ClassLibrary1.Service
 
         public IEnumerable<Post> GetFilteredPosts(Forum forum, string searchQuery)
         {
-            return String.IsNullOrEmpty(searchQuery) 
-                ? forum.Posts 
-                : forum.Posts.Where(post 
-                    => post.Title.Contains(searchQuery) 
-                       || post.Content.Contains(searchQuery));
+            if (String.IsNullOrEmpty(searchQuery))
+            {
+                return forum.Posts;
+            }
+            else
+            {
+                var normalized = searchQuery.ToLower();
+
+                return forum.Posts.Where(post => post.Title.ToLower().Contains(normalized)
+                                              || post.Content.ToLower().Contains(normalized));
+            }
         }
 
         public IEnumerable<Post> GetFilteredPosts(string searchQuery)

@@ -1,4 +1,5 @@
-﻿body {
+﻿/*main style*/
+body {
     padding: 50px 0 20px 0;
     background-color: #EEE;
     background-image: url("/images/theme/bg-01.jpeg");
@@ -8,22 +9,39 @@
     background-position: center;
 }
 
+.mainContent {
+    background-color: white;
+    padding: 10px;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.marginfix8 {
+    margin-top: 8px;
+}
+
+/*Heading layout*/
 .navbar {
     box-shadow: 0 5px 4px -6px #000;
 }
 
 .navLogo {
-    background-image: url("/images/app-logo-s.webp");
+    background-image: url("/images/app-logo.png");
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
     padding-right: 16px;
     width: 150px;
-    margin-right: 12px;
+    margin: 3px 12px;
 }
 
 .navbar li {
     font-weight: bold;
+    padding: 3px;
 }
 
 .sectionHeader {
@@ -136,10 +154,6 @@
     color: black;
     width: 60%;
     background-color: #fff;
-}
-
-.marginfix8{
-    margin-top: 8px;
 }
 
 /* Post Page */
@@ -424,6 +438,8 @@
     padding: 10px;
     background-color: white;
 }
+
+
 
 .noPosts {
     text-align: center;
